@@ -3,10 +3,10 @@ require 'rails_helper'
 feature 'Users can CRUD aliens and people' do
 
   before :each do
-    @alien1 = Alien.create!(species: 'Martians', planet: 'Mars')
-    @alien2 = Alien.create!(species: 'Daemonites', planet: 'Daemon')
-    @person1 = Person.create!(first_name: 'Will', last_name: 'Smith', occupation: 'Actor')
-    @person2 = Person.create!(first_name: 'Bob', last_name: 'Bobson', occupation: 'Farmer')
+    @alien1 = Alien.create(species: 'Martians', planet: 'Mars')
+    @alien2 = Alien.create(species: 'Daemonites', planet: 'Daemon')
+    @person1 = Person.create(first_name: 'Will', last_name: 'Smith', occupation: 'Actor')
+    @person2 = Person.create(first_name: 'Bob', last_name: 'Bobson', occupation: 'Farmer')
   end
 
   scenario 'index lists all aliens and people' do
@@ -29,7 +29,7 @@ feature 'Users can CRUD aliens and people' do
 
     fill_in 'Species', with: 'Kree'
     fill_in 'Planet', with: 'Hala'
-    click_link 'Create Alien'
+    click_on 'Create Alien'
 
     expect(current_path).to eq root_path
     expect(page).to have_content 'Kree were successfully added!'
@@ -43,10 +43,10 @@ feature 'Users can CRUD aliens and people' do
     expect(current_path).to eq new_person_path
     expect(page).to have_content 'Add New Person'
 
-    fill_in 'First Name', with: 'Dan'
-    fill_in 'Last Name', with: 'Dare'
+    fill_in 'First name', with: 'Dan'
+    fill_in 'Last name', with: 'Dare'
     fill_in 'Occupation', with: 'Hero'
-    click_link 'Create Person'
+    click_on 'Create Person'
 
     expect(current_path).to eq root_path
     expect(page).to have_content 'Dan Dare was successfully added!'
@@ -90,12 +90,12 @@ feature 'Users can CRUD aliens and people' do
 
     fill_in 'Species', with: 'Wookie'
     fill_in 'Planet', with: 'Kashyyyk'
-    click_link 'Update Alien'
+    click_on 'Update Alien'
 
     expect(current_path).to eq alien_path(@alien1)
     expect(page).to have_content 'Alien was updated!'
     expect(page).to have_content 'Species: Wookie'
-    expect(page).to have_content 'Planet: Kashyyk'
+    expect(page).to have_content 'Planet: Kashyyyk'
     expect(page).to have_no_content 'Martians'
     expect(page).to have_no_content 'Mars'
   end
@@ -106,10 +106,10 @@ feature 'Users can CRUD aliens and people' do
     expect(current_path).to eq edit_person_path(@person1)
     expect(page).to have_content 'Edit Person'
 
-    fill_in 'First Name', with: 'Peter'
-    fill_in 'Last Name', with: 'Parker'
+    fill_in 'First name', with: 'Peter'
+    fill_in 'Last name', with: 'Parker'
     fill_in 'Occupation', with: 'Spider-Man'
-    click_link 'Update Person'
+    click_on 'Update Person'
 
     expect(current_path).to eq person_path(@person1)
     expect(page).to have_content 'Person was updated!'
