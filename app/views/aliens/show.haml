@@ -1,5 +1,6 @@
 ="Species: #{@alien.species}"
 ="Planet: #{@alien.planet}"
+=link_to pluralize(@alien.abductions.count, 'Abduction'), alien_abductions_path(@alien)
 =link_to 'Index', root_path
 =link_to 'Edit', edit_alien_path(@alien)
 =link_to 'Delete', alien_path(@alien), method: :delete

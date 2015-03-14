@@ -3,10 +3,10 @@ require 'rails_helper'
 feature 'Users can CRUD aliens and people' do
 
   before :each do
-    @alien1 = Alien.create!(species: 'Martians', planet: 'Mars')
-    @alien2 = Alien.create!(species: 'Daemonites', planet: 'Daemon')
-    @person1 = Person.create!(first_name: 'Will', last_name: 'Smith', occupation: 'Actor')
-    @person2 = Person.create!(first_name: 'Bob', last_name: 'Bobson', occupation: 'Farmer')
+    @alien1 = Alien.create(species: 'Martians', planet: 'Mars')
+    @alien2 = Alien.create(species: 'Daemonites', planet: 'Daemon')
+    @person1 = Person.create(first_name: 'Will', last_name: 'Smith', occupation: 'Actor')
+    @person2 = Person.create(first_name: 'Bob', last_name: 'Bobson', occupation: 'Farmer')
   end
 
   scenario 'index lists all aliens and people' do

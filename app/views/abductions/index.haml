@@ -1,0 +1,11 @@
+%h1="List of Abductions by #{@alien.species}"
+=link_to 'New Abduction', new_alien_abduction_path(@alien)
+
+-@abductions.each do |abduction|
+  %p
+    =link_to "#{abduction.person.full_name} on #{abduction.date.strftime("%m/%d/%Y")} with ", alien_abduction_path(@alien,abduction)
+    -if abduction.anal_probe
+      butt stuff
+    -else
+      no butt stuff
+=link_to 'Back', alien_path(@alien)

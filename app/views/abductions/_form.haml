@@ -1,0 +1,7 @@
+=form_for [@alien, @abduction] do |f|
+  =f.collection_select(:person_id, Person.all, :id, :full_name)
+  =f.label :date, 'Date of Abduction'
+  =f.date_field :date
+  =f.label :anal_probe
+  =f.check_box :anal_probe
+  =f.submit

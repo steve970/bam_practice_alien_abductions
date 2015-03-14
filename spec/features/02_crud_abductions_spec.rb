@@ -3,13 +3,13 @@ require 'rails_helper'
 feature 'Users can crud abductions which belong to Aliens' do
 
   before :each do
-    @alien1 = Alien.create!(species: 'Martians', planet: 'Mars')
-    @alien2 = Alien.create!(species: 'Daemonites', planet: 'Daemon')
-    @person1 = Person.create!(first_name: 'Will', last_name: 'Smith', occupation: 'Actor')
-    @person2 = Person.create!(first_name: 'Bob', last_name: 'Bobson', occupation: 'Farmer')
-    @person3 = Person.create!(first_name: 'Richie', last_name: 'Rich', occupation: 'Rich asshole')
-    @abduction1 = Abduction.create!(alien_id: 1, person_id: 1, date: '03/20/2015', anal_probe: false)
-    @abduction1 = Abduction.create!(alien_id: 1, person_id: 2, date: '03/25/2015', anal_probe: true)
+    @alien1 = Alien.create(species: 'Martians', planet: 'Mars')
+    @alien2 = Alien.create(species: 'Daemonites', planet: 'Daemon')
+    @person1 = Person.create(first_name: 'Will', last_name: 'Smith', occupation: 'Actor')
+    @person2 = Person.create(first_name: 'Bob', last_name: 'Bobson', occupation: 'Farmer')
+    @person3 = Person.create(first_name: 'Richie', last_name: 'Rich', occupation: 'Rich asshole')
+    @abduction1 = Abduction.create(alien_id: @alien1.id, person_id: @person1.id, date: '2015-03-20', anal_probe: false)
+    @abduction2 = Abduction.create(alien_id: @alien1.id, person_id: @person2.id, date: '2015-03-25', anal_probe: true)
   end
 
   scenario 'User can see on an Alien\'s show page how many abductions they have' do
@@ -35,11 +35,12 @@ feature 'Users can crud abductions which belong to Aliens' do
     visit alien_abductions_path(@alien1)
     click_link 'New Abduction'
 
+    expect(current_path).to eq new_alien_abduction_path(@alien1)
     expect(page).to have_content 'Add New Abduction'
-    select @person3.name, from: :abduction_person_id
-    fill_in 'Date of Abduction', with: '03/16/2015'
-    check 'anal_probe?'
-    click_link 'Add Abduction'
+    select @person3.full_name, from: :abduction_person_id
+    fill_in 'Date of Abduction', with: '2015-03-16'
+    check 'abduction_anal_probe'
+    click_on 'Create Abduction'
 
     expect(current_path).to eq alien_abductions_path(@alien1)
     expect(page).to have_content 'Martians abducted Richie Rich!'
@@ -48,7 +49,7 @@ feature 'Users can crud abductions which belong to Aliens' do
 
   scenario 'User can see a show page on an abduction' do
     visit alien_abductions_path(@alien1)
-    click_link 'Will Smith on 03/20/2015 with no butt stuff'
+    click_link 'Will Smith on 03/20/2015'
 
     expect(current_path).to eq alien_abduction_path(@alien1, @abduction1)
     expect(page).to have_content 'Person Abducted: Will Smith'
@@ -64,8 +65,8 @@ feature 'Users can crud abductions which belong to Aliens' do
     click_link 'Edit'
     expect(current_path).to eq edit_alien_abduction_path(@alien1, @abduction1)
     expect(page).to have_content 'Edit Abduction'
-    check 'anal_probe?'
-    click_link 'Update Abduction'
+    check 'abduction_anal_probe'
+    click_on 'Update Abduction'
 
     expect(current_path).to eq alien_abduction_path(@alien1, @abduction1)
     expect(page).to have_content 'Abduction was updated!'
