@@ -8,8 +8,8 @@ feature 'Users can crud abductions which belong to Aliens' do
     @person1 = Person.create!(first_name: 'Will', last_name: 'Smith', occupation: 'Actor')
     @person2 = Person.create!(first_name: 'Bob', last_name: 'Bobson', occupation: 'Farmer')
     @person3 = Person.create!(first_name: 'Richie', last_name: 'Rich', occupation: 'Rich asshole')
-    @abduction1 = Abduction.create!(alien_id: 1, person_id: 1, date: '03/20/2015', anal_probe?: false)
-    @abduction1 = Abduction.create!(alien_id: 1, person_id: 2, date: '03/25/2015', anal_probe?: true)
+    @abduction1 = Abduction.create!(alien_id: 1, person_id: 1, date: '03/20/2015', anal_probe: false)
+    @abduction1 = Abduction.create!(alien_id: 1, person_id: 2, date: '03/25/2015', anal_probe: true)
   end
 
   scenario 'User can see on an Alien\'s show page how many abductions they have' do
@@ -28,7 +28,7 @@ feature 'Users can crud abductions which belong to Aliens' do
     expect(page).to have_content 'List of Abductions by Martians'
     expect(page).to have_content 'Will Smith on 03/20/2015 with no butt stuff'
     expect(page).to have_content 'Bob Bobson on 03/25/2015 with butt stuff'
-    expect(find_link('Back'[:href]).to eq(alien_path(@alien1))
+    expect(find_link('Back')[:href]).to eq(alien_path(@alien1))
   end
 
   scenario 'User can add an abduction' do
@@ -36,7 +36,7 @@ feature 'Users can crud abductions which belong to Aliens' do
     click_link 'New Abduction'
 
     expect(page).to have_content 'Add New Abduction'
-    select @person3.name, from :abduction_person_id
+    select @person3.name, from: :abduction_person_id
     fill_in 'Date of Abduction', with: '03/16/2015'
     check 'anal_probe?'
     click_link 'Add Abduction'
@@ -54,9 +54,9 @@ feature 'Users can crud abductions which belong to Aliens' do
     expect(page).to have_content 'Person Abducted: Will Smith'
     expect(page).to have_content 'Date of Abduction: 03/20/2015'
     expect(page).to have_content 'Was Person Anally Probed? False'
-    expect(find_link('Index'[:href]).to eq(alien_abductions_path(@alien1))
-    expect(find_link('Edit'[:href]).to eq(edit_alien_abduction_path(@alien1, @abduction1))
-    expect(find_link('Delete'[:href]).to eq(alien_abduction_path(@alien1, @abduction1))
+    expect(find_link('Index')[:href]).to eq(alien_abductions_path(@alien1))
+    expect(find_link('Edit')[:href]).to eq(edit_alien_abduction_path(@alien1, @abduction1))
+    expect(find_link('Delete')[:href]).to eq(alien_abduction_path(@alien1, @abduction1))
   end
 
   scenario 'User can update abduction information' do

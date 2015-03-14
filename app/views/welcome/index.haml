@@ -1,0 +1,11 @@
+%h1 List of Aliens
+
+=link_to 'New Alien', new_alien_path
+
+-@aliens.each do |alien|
+  %p=link_to "#{alien.species} from the planet #{alien.planet}", alien_path(alien)
+
+=link_to 'New Person', new_person_path
+%h1 List of People
+-@people.each do |person|
+  %p=link_to "#{person.full_name} - #{person.occupation}", person_path(person)
