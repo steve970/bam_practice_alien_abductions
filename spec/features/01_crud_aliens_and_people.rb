@@ -1,21 +1,21 @@
 require 'rails_helper'
 
-feature 'Users can CRUD aliens and humans' do
+feature 'Users can CRUD aliens and people' do
 
   before :each do
     @alien1 = Alien.create!(species: 'Martians', planet: 'Mars')
     @alien2 = Alien.create!(species: 'Daemonites', planet: 'Daemon')
-    @human1 = Human.create!(first_name: 'Will', last_name: 'Smith', occuption: 'Actor')
-    @human2 = Human.create!(first_name: 'Bob', last_name: 'Bobson', occuption: 'Farmer')
+    @person1 = Person.create!(first_name: 'Will', last_name: 'Smith', occuption: 'Actor')
+    @person2 = Person.create!(first_name: 'Bob', last_name: 'Bobson', occuption: 'Farmer')
   end
 
-  scenario 'index lists all aliens and humans' do
+  scenario 'index lists all aliens and people' do
     visit root_path
 
     expect(page).to have_content 'List of Aliens'
     expect(page).to have_content 'Martians from the planet Mars'
     expect(page).to have_content 'Daemonites from the planet Daemon'
-    expect(page).to have_content 'List of Humans'
+    expect(page).to have_content 'List of People'
     expect(page).to have_content 'Will Smith - Actor'
     expect(page).to have_content 'Bob Bobson - Farmer'
   end
@@ -36,17 +36,17 @@ feature 'Users can CRUD aliens and humans' do
     expect(page).to have_content 'Kree from the planet Hala'
   end
 
-  scenario 'User can add a new Human' do
+  scenario 'User can add a new Person' do
     visit root_path
-    click_link 'New Human'
+    click_link 'New Person'
 
-    expect(current_path).to eq new_human_path
-    expect(page).to have_content 'Add New Human'
+    expect(current_path).to eq new_person_path
+    expect(page).to have_content 'Add New Person'
 
     fill_in 'First Name', with: 'Dan'
     fill_in 'Last Name', with: 'Dare'
     fill_in 'Occupation', with: 'Hero'
-    click_link 'Create Human'
+    click_link 'Create Person'
 
     expect(current_path).to eq root_path
     expect(page).to have_content 'Dan Dare was successfully added!'
@@ -61,24 +61,24 @@ feature 'Users can CRUD aliens and humans' do
     expect(current_path).to eq alien_path(@alien1)
     expect(page).to have_content 'Species: Martians'
     expect(page).to have_content 'Planet: Mars'
-    expect(find_link('Index'[:href]).to eq(root_path)
-    expect(find_link('Edit'[:href]).to eq(edit_alien_path(@alien1))
-    expect(find_link('Delete'[:href]).to eq(alien_path(@alien1))
+    expect(find_link('Index')[:href]).to eq(root_path)
+    expect(find_link('Edit')[:href]).to eq(edit_alien_path(@alien1))
+    expect(find_link('Delete')[:href]).to eq(alien_path(@alien1))
 
   end
 
-  scenario 'index links to Human show' do
+  scenario 'index links to Person show' do
 
     visit root_path
     click_link 'Will Smith - Actor'
 
-    expect(current_path).to eq human_path(@human1)
+    expect(current_path).to eq person_path(@person1)
     expect(page).to have_content 'First Name: Will'
     expect(page).to have_content 'Last Name: Smith'
     expect(page).to have_content 'Occupation: Actor'
-    expect(find_link('Index'[:href]).to eq(root_path)
-    expect(find_link('Edit'[:href]).to eq(edit_human_path(@human1))
-    expect(find_link('Delete'[:href]).to eq(human_path(@human1))
+    expect(find_link('Index')[:href]).to eq(root_path)
+    expect(find_link('Edit')[:href]).to eq(edit_person_path(@person1))
+    expect(find_link('Delete')[:href]).to eq(person_path(@person1))
 
   end
 
@@ -100,19 +100,19 @@ feature 'Users can CRUD aliens and humans' do
     expect(page).to have_no_content 'Mars'
   end
 
-  scenario 'User can update Human' do
-    visit human_path(@human1)
+  scenario 'User can update Person' do
+    visit person_path(@person1)
     click_link 'Edit'
-    expect(current_path).to eq edit_human_path(@human1)
-    expect(page).to have_content 'Edit Human'
+    expect(current_path).to eq edit_person_path(@person1)
+    expect(page).to have_content 'Edit Person'
 
     fill_in 'First Name', with: 'Peter'
     fill_in 'Last Name', with: 'Parker'
     fill_in 'Occupation', with: 'Spider-Man'
-    click_link 'Update Human'
+    click_link 'Update Person'
 
-    expect(current_path).to eq human_path(@human1)
-    expect(page).to have_content 'Human was updated!'
+    expect(current_path).to eq person_path(@person1)
+    expect(page).to have_content 'Person was updated!'
     expect(page).to have_content 'First Name: Peter'
     expect(page).to have_content 'Last Name: Parker'
     expect(page).to have_content 'Occupation: Spider-Man'
@@ -132,15 +132,15 @@ feature 'Users can CRUD aliens and humans' do
     expect { @alien1.reload }.to raise_error ActiveRecord::RecordNotFound
   end
 
-  scenario 'User can delete Human' do
-    visit human_path(@human1)
+  scenario 'User can delete Person' do
+    visit person_path(@person1)
     click_link 'Delete'
 
     expect(current_path).to eq root_path
     expect(page).to have_content 'Will Smith has been killed!'
     expect(page).to have_no_content 'Will Smith - Actor'
 
-    expect { @human1.reload }.to raise_error ActiveRecord::RecordNotFound
+    expect { @person1.reload }.to raise_error ActiveRecord::RecordNotFound
   end
 
 end
