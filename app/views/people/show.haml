@@ -1,0 +1,6 @@
+="First Name: #{@person.first_name}"
+="Last Name: #{@person.last_name}"
+="Occupation: #{@person.occupation}"
+=link_to 'Index', root_path
+=link_to 'Edit', edit_person_path(@person)
+=link_to 'Delete', person_path(@person), method: :delete
