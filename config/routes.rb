@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root 'welcome#index'
 
-  resources :aliens, except: [:index]
+  resources :aliens, except: [:index] do
+    resources :abductions
+  end
 
   resources :people, except: [:index]
   # The priority is based upon order of creation: first created -> highest priority.

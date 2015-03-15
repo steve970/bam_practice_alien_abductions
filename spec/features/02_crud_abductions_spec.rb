@@ -15,7 +15,7 @@ feature 'Users can crud abductions which belong to Aliens' do
   scenario 'User can see on an Alien\'s show page how many abductions they have' do
     visit root_path
     click_link 'Martians from the planet Mars'
-
+    
     expect(current_path).to eq alien_path(@alien1)
     expect(page).to have_content '2 Abductions'
   end
