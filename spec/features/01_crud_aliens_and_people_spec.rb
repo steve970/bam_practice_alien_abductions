@@ -124,7 +124,7 @@ feature 'Users can CRUD aliens and people' do
   scenario 'User can delete Alien' do
     visit alien_path(@alien1)
     click_link 'Delete'
-
+    
     expect(current_path).to eq root_path
     expect(page).to have_content 'Martians were successfully destroyed'
     expect(page).to have_no_content 'Martians from the planet Mars'

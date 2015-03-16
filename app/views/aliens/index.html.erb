@@ -1,0 +1,17 @@
+List of Aliens
+
+<%= link_to "New Alien", new_alien_path(@alien) %>
+
+
+<% @aliens.each do |alien| %>
+  <%= link_to "#{alien.species} from the planet #{alien.planet}", alien_path(alien) %>
+<% end %>
+
+
+List of People
+
+<%= link_to "New Person", new_person_path(@person) %>
+
+<% @people.each do |person| %>
+  <%= link_to "#{person.first_name} #{person.last_name} - #{person.occupation}", person_path(person) %>
+<% end %>

@@ -1,0 +1,7 @@
+Person Abducted: <%= @abduction.person.full_name %>
+Date of Abduction: <%= @abduction.date.strftime("%m/%d/%Y") %>
+Was Person Anally Probed? <%= @abduction.anal_probe.to_s.capitalize %>
+
+<%= link_to "Index", alien_abductions_path(@alien) %>
+<%= link_to "Edit", edit_alien_abduction_path(@alien, @abduction) %>
+<%= link_to "Delete", alien_abduction_path(@alien, @abduction), method: :delete %>

@@ -1,0 +1,18 @@
+List of Abductions by Martians
+
+Richie Rich on 03/16/2015 with butt stuff
+
+<%= @abductions.each do |abduction| %>
+
+  <%= link_to "#{abduction.person.full_name} on #{abduction.date.strftime("%m/%d/%Y")} with ", alien_abduction_path(@alien, abduction) %>
+  <% if abduction.anal_probe %>
+    <%= "butt stuff" %>
+  <% else %>
+    <%= "no butt stuff" %>
+  <% end %>
+
+<% end %>
+
+<%= link_to 'New Abduction', new_alien_abduction_path(@alien) %>
+
+<%= link_to "Back", alien_path(@alien) %>

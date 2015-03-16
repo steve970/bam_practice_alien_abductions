@@ -1,0 +1,15 @@
+Edit Person
+
+<%= form_for @person do |f| %>
+
+  <%= f.label :first_name %>
+  <%= f.text_field :first_name %>
+
+  <%= f.label :last_name %>
+  <%= f.text_field :last_name %>
+
+  <%= f.label :occupation %>
+  <%= f.text_field :occupation %>
+
+  <%= f.submit "Update Person" %>
+<% end %>

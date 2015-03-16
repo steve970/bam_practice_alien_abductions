@@ -22,6 +22,7 @@ feature 'Users can crud abductions which belong to Aliens' do
 
   scenario 'User can see index of an Alien\'s Abductions' do
     visit alien_path(@alien1)
+    
     click_link '2 Abductions'
 
     expect(current_path).to eq alien_abductions_path(@alien1)
